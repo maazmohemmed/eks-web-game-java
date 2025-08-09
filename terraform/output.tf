@@ -8,3 +8,10 @@ output "jenkins_public_ip" {
   description = "Public IP of Jenkins server"
   value       = aws_instance.jenkins_server.public_ip
 }
+output "ecr_uri" {
+  value = aws_ecr_repository.webgame.repository_url
+}
+
+output "cluster_name" {
+  value = aws_eks_cluster.webgame.name
+}
