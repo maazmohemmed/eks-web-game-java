@@ -1,4 +1,4 @@
-resource "aws_instance" "jenkins_server" {
+resource "aws_instance" "jenkins_server_21" {
   ami                    = "ami-0c94855ba95c71c99"  # Amazon Linux 2 AMI in us-east-1
   instance_type          = "t3.micro"
   private_ip             = "172.31.32.10" # Match your subnet CIDR
