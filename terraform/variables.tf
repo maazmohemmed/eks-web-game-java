@@ -1,8 +1,9 @@
 variable "my_ip" {
   description = "Your public IP address for SSH/Jenkins access"
-    type        = string
-    default     = "0.0.0.0/0"
+  type        = string
+  default     = "0.0.0.0/0"
 }
+
 variable "region" {
   type    = string
   default = "us-east-1"

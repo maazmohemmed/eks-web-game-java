@@ -1,4 +1,4 @@
-# Security Group for Jenkins
+/*# Security Group for Jenkins
 resource "aws_security_group" "jenkins_sg" {
   name        = "jenkins-security-group"
   description = "Allow SSH and Jenkins HTTP access"
@@ -31,4 +31,4 @@ resource "aws_security_group" "jenkins_sg" {
   tags = {
     Name = "jenkins-security-group"
   }
-}
+}*/
