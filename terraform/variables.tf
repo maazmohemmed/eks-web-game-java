@@ -9,7 +9,7 @@ variable "region" {
   default = "us-east-1"
 }
 
-variable "tfstate_bucket" {
+/*variable "tfstate_bucket" {
   description = "S3 bucket to store terraform state (must exist or be created by bootstrap)"
   type        = string
 }
@@ -18,7 +18,7 @@ variable "tfstate_lock_table" {
   description = "DynamoDB table name for state locking"
   type        = string
   default     = "terraform-locks"
-}
+}*/
 
 variable "cluster_name" {
   type    = string
