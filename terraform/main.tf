@@ -84,7 +84,7 @@ resource "aws_security_group" "jenkins_sg" {
   }
 }
 
-resource "aws_instance" "jenkins_server" {
+resource "aws_instance" "jenkins_server-1" {
   ami                         = "ami-0c94855ba95c71c99"
   instance_type               = "t3.micro"
   key_name                    = "web-game-app-key"
@@ -96,39 +96,32 @@ resource "aws_instance" "jenkins_server" {
     #!/bin/bash
     set -e
 
+    # Update packages
     yum update -y
+
+    # Install dependencies
     yum install -y wget curl git
 
+    # Install Temurin JDK 21
     wget https://packages.adoptium.net/artifactory/rpm/amazonlinux/2/x86_64/Packages/t/temurin-21-jdk-21.0.2.13-1.x86_64.rpm
     yum localinstall -y temurin-21-jdk-21.0.2.13-1.x86_64.rpm
 
+    # Set JAVA_HOME
     echo "export JAVA_HOME=/usr/lib/jvm/temurin-21-jdk" >> /etc/profile
     echo "export PATH=\\$JAVA_HOME/bin:\\$PATH" >> /etc/profile
     source /etc/profile
 
+    # Install Jenkins
     wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
     rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
     yum install jenkins -y
 
-    yum install -y maven
-    yum install -y docker
-    systemctl start docker
-    systemctl enable docker
-    usermod -aG docker jenkins
-
-    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-    install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-
-    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-    unzip awscliv2.zip
-    ./aws/install
-
+    # Start & Enable Jenkins
     systemctl enable jenkins
     systemctl start jenkins
-
   EOF
 
   tags = {
-    Name = "Jenkins-Server"
+    Name = "Jenkins-Server-1"
   }
 }
